@@ -9,6 +9,7 @@ import Inicio from "../assets/DEc.png";
 import Facebook from "../assets/facebook.png";
 import Whats from "../assets/whatsapp.png";
 import Insta from "../assets/instagram.png";
+import { API_BASE } from "../lib/apiBase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Login = () => {
   const loginUser = async (dataForm) => {
     const { email, password } = dataForm;
 
-    const base = (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(/\/$/, "");
+    const base = API_BASE;
     const path =
       role === "admin"
         ? "/admin/login"
@@ -89,11 +90,7 @@ const Login = () => {
   };
 
   const loginWithGoogle = () => {
-    const base =
-      (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(
-        /\/$/,
-        ""
-      );
+    const base = API_BASE;
     window.location.href = `${base}/donante/google`;
   };
 

@@ -3,12 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { toast } from "react-toastify";
-
-const getBackendBase = () => {
-  const api = (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(/\/$/, "");
-  // quitar sufijo /api para el socket
-  return api.endsWith("/api") ? api.slice(0, -4) : api;
-};
+import { API_BASE, SOCKET_BASE } from "../lib/apiBase";
 
 const getAuthToken = () => {
   // usa la clave según el rol guardado
@@ -31,7 +26,8 @@ export default function ChatRoom({
   const socketRef = useRef(null);
   const listRef = useRef(null);
 
-  const apiBase = useMemo(getBackendBase, []);
+  const apiBase = API_BASE;
+  const socketBase = SOCKET_BASE;
   const token = useMemo(() => tokenOverride || getAuthToken(), [tokenOverride]);
 
   // scroll al final
@@ -45,7 +41,7 @@ export default function ChatRoom({
   useEffect(() => {
     const loadHistory = async () => {
       try {
-        const resp = await fetch(`${apiBase}/api/chat/${roomId}`, {
+        const resp = await fetch(`${apiBase}/chat/${roomId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await resp.json().catch(() => ({}));
@@ -65,7 +61,7 @@ export default function ChatRoom({
       toast.error("Falta roomId o token para el chat");
       return;
     }
-    const socket = io(apiBase, {
+    const socket = io(socketBase, {
       auth: { token, role: roleOverride },
       transports: ["websocket"],
     });
@@ -98,7 +94,7 @@ export default function ChatRoom({
       socket.emit("leaveRoom", { roomId });
       socket.disconnect();
     };
-  }, [apiBase, roomId, token]);
+  }, [roomId, token, roleOverride, socketBase]);
 
   const sendMessage = (e) => {
     e?.preventDefault();

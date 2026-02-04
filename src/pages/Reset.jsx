@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logoDog from "../assets/LogoDEc.png";
+import { API_BASE } from "../lib/apiBase";
 
 const Reset = () => {
   const { token } = useParams();
@@ -21,7 +22,7 @@ const Reset = () => {
     const verifyToken = async () => {
       try {
         setLoadingVerify(true);
-        const base = (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(/\/$/, "");
+        const base = API_BASE;
         const path =
           role === "admin"
             ? "/admin/recuperarpassword"
@@ -85,7 +86,7 @@ const Reset = () => {
 
     try {
       setLoadingSubmit(true);
-      const base = (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(/\/$/, "");
+      const base = API_BASE;
       const path =
         role === "admin"
           ? "/admin/nuevopassword"

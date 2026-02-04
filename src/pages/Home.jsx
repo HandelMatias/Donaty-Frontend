@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import LogoDonaty from '/src/assets/LogoDEc.png'
 import Juguetes from '/src/assets/Imagen2.png'
 import ComidaVegetales from '/src/assets/Imagen4.png'
@@ -8,12 +8,10 @@ import Cash from '/src/assets/Donacion-monetaria.png'
 import Whats from '/src/assets/whatsapp.png'
 import Insta from '/src/assets/instagram.png'
 import { NavLink } from 'react-router-dom'
+import { API_BASE } from "../lib/apiBase";
 
 const Home = () => {
-    const API = useMemo(
-        () => (import.meta.env.VITE_API_URL || "http://localhost:4000/api").replace(/\/$/, ""),
-        []
-    );
+    const API = API_BASE;
 
     const [donaciones, setDonaciones] = useState([]);
     const [loading, setLoading] = useState(false);

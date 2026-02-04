@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Inicio from "../assets/DEc.png";
+import { API_BASE } from "../lib/apiBase";
 
 const Forgot = () => {
   const {
@@ -18,7 +19,7 @@ const Forgot = () => {
   const [role, setRole] = useState("donante"); // donante | admin | recolector
 
   const sendMail = async ({ email }) => {
-    const base = (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(/\/$/, "");
+    const base = API_BASE;
     const path =
       role === "admin"
         ? "/admin/recuperarpassword"

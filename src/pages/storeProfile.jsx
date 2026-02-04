@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { API_BASE } from "../lib/apiBase";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("donatyToken");
@@ -21,7 +22,7 @@ const storeProfile = create((set) => ({
   // Obtener perfil /donante/perfil
   profile: async () => {
     try {
-      const url = `${import.meta.env.VITE_BACKEND_URL}/donante/perfil`;
+      const url = `${API_BASE}/donante/perfil`;
       const respuesta = await axios.get(url, getAuthHeaders());
       set({ user: respuesta.data });
     } catch (error) {

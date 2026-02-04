@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const getBase = () =>
-  (import.meta.env.VITE_API_URL || "http://localhost:4000/api").replace(/\/$/, "");
+import { API_BASE } from "../lib/apiBase";
 
 export default function AiSimilarity() {
   const [text, setText] = useState("");
@@ -22,7 +20,7 @@ export default function AiSimilarity() {
     }
     try {
       setLoading(true);
-      const res = await fetch(`${getBase()}/ai/index`, {
+      const res = await fetch(`${API_BASE}/ai/index`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

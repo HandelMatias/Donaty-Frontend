@@ -1,6 +1,7 @@
 // src/pages/PaymentSuccess.jsx
 import { useEffect, useState } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
+import { API_BASE } from "../lib/apiBase";
 
 export default function PaymentSuccess() {
   const [params] = useSearchParams();
@@ -16,12 +17,7 @@ export default function PaymentSuccess() {
 
     const confirm = async () => {
       try {
-        const base =
-          (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(
-            /\/$/,
-            ""
-          );
-        const resp = await fetch(`${base}/stripe/confirm`, {
+        const resp = await fetch(`${API_BASE}/stripe/confirm`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sessionId }),

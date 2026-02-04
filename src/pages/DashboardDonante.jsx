@@ -9,6 +9,7 @@ import DonationList from "./DonationList";
 import { MdLogout } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_BASE } from "../lib/apiBase";
 
 const DashboardDonante = () => {
   const [activeTab, setActiveTab] = useState("perfil");
@@ -28,11 +29,7 @@ const DashboardDonante = () => {
 
   // apiFetch
   const apiFetch = useCallback(async (path, { method = "GET", body } = {}) => {
-    const BASE =
-      (import.meta.env.VITE_API_URL || "http://localhost:4000/api").replace(
-        /\/$/,
-        ""
-      );
+    const BASE = API_BASE;
 
     const token = localStorage.getItem("donatyToken");
 

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import storeProfile from "./storeProfile";
+import { API_BASE } from "../lib/apiBase";
 
 const FormProfile = () => {
   const { user, updateProfile } = storeProfile();
@@ -16,7 +17,7 @@ const FormProfile = () => {
 
   const updateUser = (dataForm) => {
     if (!user?._id) return;
-    const url = `${import.meta.env.VITE_BACKEND_URL}/donante/actualizarperfil/${user._id}`;
+    const url = `${API_BASE}/donante/actualizarperfil/${user._id}`;
     updateProfile(url, dataForm);
   };
 

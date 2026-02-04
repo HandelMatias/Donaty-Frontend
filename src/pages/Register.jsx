@@ -10,6 +10,7 @@ import Facebook from "/src/assets/facebook.png";
 import Whats from "/src/assets/whatsapp.png";
 import Insta from "/src/assets/instagram.png";
 import { registerSchema } from "../validation/registerSchema.js";
+import { API_BASE } from "../lib/apiBase";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Register = () => {
       password,
     };
 
-    const base = (import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api").replace(/\/$/, "");
+    const base = API_BASE;
     const path =
       role === "admin"
         ? "/admin/registro"

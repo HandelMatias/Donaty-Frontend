@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import storeProfile from "../pages/storeProfile";
 import storeAuth from "../pages/storeAuth";
+import { API_BASE } from "../lib/apiBase";
 
 const CardPassword = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -16,7 +17,7 @@ const CardPassword = () => {
       return;
     }
 
-    const url = `${import.meta.env.VITE_BACKEND_URL}/donante/actualizarpassword/${user._id}`;
+    const url = `${API_BASE}/donante/actualizarpassword/${user._id}`;
     const response = await updatePasswordProfile(url, dataForm);
 
     // Si el backend responde 200, limpiamos el formulario y cerramos sesión

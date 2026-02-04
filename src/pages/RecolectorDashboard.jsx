@@ -13,16 +13,10 @@ import Facebook from "/src/assets/facebook.png";
 import Whats from "/src/assets/whatsapp.png";
 import Insta from "/src/assets/instagram.png";
 import ChatRoom from "../components/ChatRoom.jsx";
+import { API_BASE } from "../lib/apiBase";
 
 const useApiRecolector = () => {
-  const base = useMemo(
-    () =>
-      (import.meta.env.VITE_API_URL || "http://localhost:4000/api").replace(
-        /\/$/,
-        ""
-      ),
-    []
-  );
+  const base = API_BASE;
   const token = useMemo(
     () => localStorage.getItem("donatyRecolectorToken") || "",
     []

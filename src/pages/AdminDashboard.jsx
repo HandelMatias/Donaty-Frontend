@@ -1,5 +1,5 @@
 // src/pages/AdminDashboard.jsx
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
   MdPeople,
@@ -17,16 +17,10 @@ import Whats from "/src/assets/whatsapp.png";
 import Insta from "/src/assets/instagram.png";
 import { MdLogout } from "react-icons/md";
 import ChatRoom from "../components/ChatRoom.jsx";
+import { API_BASE } from "../lib/apiBase";
 
 const useApiAdmin = () => {
-  const base = useMemo(
-    () =>
-      (import.meta.env.VITE_API_URL || "http://localhost:4000/api").replace(
-        /\/$/,
-        ""
-      ),
-    []
-  );
+  const base = API_BASE;
 
   const token = useMemo(
     () => localStorage.getItem("donatyAdminToken") || "",

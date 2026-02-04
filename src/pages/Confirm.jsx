@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { API_BASE } from "../lib/apiBase";
 
 import Logo from "/src/assets/LogoDEc.png";
 
@@ -9,7 +10,7 @@ const Confirm = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const url = `${import.meta.env.VITE_BACKEND_URL}/donante/confirmar/${token}`;
+        const url = `${API_BASE}/donante/confirmar/${token}`;
 
         const response = await fetch(url);
         const data = await response.json();
