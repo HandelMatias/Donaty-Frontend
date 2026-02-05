@@ -29,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/google/callback" element={<GoogleCallback />} />
+        <Route path="/google-callback" element={<GoogleCallback />} />
         <Route path="/register" element={<Register />} />
         
         {/* Recuperación de contraseña */}
