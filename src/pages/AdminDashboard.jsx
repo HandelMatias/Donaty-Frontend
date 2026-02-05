@@ -265,9 +265,11 @@ const AdminDashboard = () => {
     }
     try {
       setLoading(true);
+      const payload = { nombre, apellido, direccion, telefono, email, password };
+      if (rol === "admin" && forceAdmin) payload.force = true;
       await api(target, {
         method: "POST",
-        body: { nombre, apellido, direccion, telefono, email, password },
+        body: payload,
         headers:
           rol === "admin" && adminSecret ? { "x-admin-secret": adminSecret } : undefined,
       });
