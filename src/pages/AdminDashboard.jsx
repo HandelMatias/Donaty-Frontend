@@ -537,7 +537,7 @@ const AdminDashboard = () => {
                       onChange={(e) => setForceAdmin(e.target.checked)}
                       className="mt-1"
                     />
-                    Seguro de crear el admin (usa force=true)
+                    Seguro de crear el admin
                   </label>
                 )}
                 {[
