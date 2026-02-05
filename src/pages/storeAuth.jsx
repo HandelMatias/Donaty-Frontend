@@ -14,6 +14,8 @@ const storeAuth = create(
         set({ token: null, rol: null });
         localStorage.removeItem("donatyToken");
         localStorage.removeItem("donatyUser");
+        localStorage.removeItem("donatyAuthProvider");
+        localStorage.removeItem("donatyHasPassword");
       },
     }),
     {

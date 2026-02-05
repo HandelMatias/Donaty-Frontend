@@ -32,6 +32,10 @@ const GoogleCallback = () => {
         : "donatyToken";
     localStorage.setItem(tokenKey, token);
     localStorage.setItem("donatyRole", rol);
+    localStorage.setItem("donatyAuthProvider", "google");
+    if (localStorage.getItem("donatyHasPassword") !== "true") {
+      localStorage.setItem("donatyHasPassword", "false");
+    }
 
     toast.success("Inicio de sesión con Google exitoso.", {
       position: "top-right",

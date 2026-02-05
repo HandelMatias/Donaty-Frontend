@@ -67,6 +67,8 @@ const Login = () => {
       }
       localStorage.setItem("donatyUser", JSON.stringify({ ...data, role }));
       localStorage.setItem("donatyRole", role);
+      localStorage.setItem("donatyAuthProvider", "local");
+      localStorage.setItem("donatyHasPassword", "true");
 
       toast.success("Inicio de sesión exitoso.", {
         position: "top-right",

@@ -27,6 +27,15 @@ const DashboardDonante = () => {
     telefono: "",
   });
 
+  const authProvider = localStorage.getItem("donatyAuthProvider") || "";
+  const hasPassword = localStorage.getItem("donatyHasPassword") === "true";
+  const isGoogleUser =
+    authProvider === "google" ||
+    user?.provider === "google" ||
+    user?.google === true ||
+    user?.isGoogle === true;
+  const showPasswordCard = !isGoogleUser || hasPassword;
+
   // apiFetch
   const apiFetch = useCallback(async (path, { method = "GET", body } = {}) => {
     const BASE = API_BASE;
@@ -70,6 +79,8 @@ const DashboardDonante = () => {
   const logout = () => {
     localStorage.removeItem("donatyToken");
     localStorage.removeItem("donatyUser");
+    localStorage.removeItem("donatyAuthProvider");
+    localStorage.removeItem("donatyHasPassword");
     clearUser();
     navigate("/login");
   };
@@ -169,9 +180,11 @@ const DashboardDonante = () => {
                 </p>
               </div>
 
-              <div className="bg-white p-6 shadow-lg rounded-xl">
-                <CardPassword />
-              </div>
+              {showPasswordCard && (
+                <div className="bg-white p-6 shadow-lg rounded-xl">
+                  <CardPassword />
+                </div>
+              )}
             </div>
           </div>
         )}

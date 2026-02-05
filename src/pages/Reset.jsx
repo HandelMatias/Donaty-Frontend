@@ -120,6 +120,8 @@ const Reset = () => {
           autoClose: 3000,
         }
       );
+      localStorage.setItem("donatyHasPassword", "true");
+      localStorage.setItem("donatyAuthProvider", "local");
 
       setTimeout(() => {
         navigate("/login");
