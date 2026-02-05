@@ -18,6 +18,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("donante"); // donante | admin | recolector
+  const enableAdminRegister = import.meta.env.VITE_ENABLE_ADMIN_REGISTER === "true";
 
   // react-hook-form
   const {
@@ -182,7 +183,7 @@ const Register = () => {
           <div className="mb-6 flex flex-wrap justify-center gap-2">
             {[
               { value: "donante", label: "Donante" },
-              { value: "admin", label: "Admin" },
+            ...(enableAdminRegister ? [{ value: "admin", label: "Admin" }] : []),
               { value: "recolector", label: "Recolector" },
             ].map((r) => (
               <button
