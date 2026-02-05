@@ -27,12 +27,13 @@ const useApiAdmin = () => {
     []
   );
 
-  const call = async (path, { method = "GET", body } = {}) => {
+  const call = async (path, { method = "GET", body, headers } = {}) => {
     const res = await fetch(`${base}${path}`, {
       method,
       headers: {
         "Content-Type": "application/json",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(headers || {}),
       },
       body: body ? JSON.stringify(body) : undefined,
     });
@@ -65,7 +66,7 @@ const AdminDashboard = () => {
     telefono: "",
     direccion: "",
     password: "",
-    rol: "donante", // donante | recolector
+    rol: "donante", // donante | recolector | admin
   });
   const [perfil, setPerfil] = useState(null);
   const [perfilForm, setPerfilForm] = useState({
@@ -251,15 +252,28 @@ const AdminDashboard = () => {
       return;
     }
     const target =
-      rol === "recolector" ? "/recolector/registro" : "/donante/registro";
+      rol === "admin"
+        ? "/admin/registro"
+        : rol === "recolector"
+        ? "/recolector/registro"
+        : "/donante/registro";
+    const adminSecret = import.meta.env.VITE_ADMIN_SECRET || "";
+    if (rol === "admin" && !adminSecret) {
+      toast.error("Falta VITE_ADMIN_SECRET para crear admins");
+      return;
+    }
     try {
       setLoading(true);
       await api(target, {
         method: "POST",
         body: { nombre, apellido, direccion, telefono, email, password },
+        headers:
+          rol === "admin" && adminSecret ? { "x-admin-secret": adminSecret } : undefined,
       });
       toast.success(
-        rol === "recolector"
+        rol === "admin"
+          ? "Admin creado (confirmar por correo)"
+          : rol === "recolector"
           ? "Recolector creado (confirmar por correo)"
           : "Donante creado (confirmar por correo)"
       );
@@ -508,6 +522,7 @@ const AdminDashboard = () => {
                   >
                     <option value="donante">Donante</option>
                     <option value="recolector">Recolector</option>
+                    <option value="admin">Admin</option>
                   </select>
                 </div>
                 {[
