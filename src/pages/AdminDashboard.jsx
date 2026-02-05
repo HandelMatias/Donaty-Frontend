@@ -68,6 +68,7 @@ const AdminDashboard = () => {
     password: "",
     rol: "donante", // donante | recolector | admin
   });
+  const [forceAdmin, setForceAdmin] = useState(false);
   const [perfil, setPerfil] = useState(null);
   const [perfilForm, setPerfilForm] = useState({
     nombre: "",
@@ -253,7 +254,7 @@ const AdminDashboard = () => {
     }
     const target =
       rol === "admin"
-        ? "/admin/registro"
+        ? `/admin/registro${forceAdmin ? "?force=true" : ""}`
         : rol === "recolector"
         ? "/recolector/registro"
         : "/donante/registro";
@@ -286,6 +287,7 @@ const AdminDashboard = () => {
         password: "",
         rol: "donante",
       });
+      setForceAdmin(false);
       loadUsuarios();
       loadRecolectores();
     } catch (e) {
@@ -515,9 +517,11 @@ const AdminDashboard = () => {
                   </label>
                   <select
                     value={nuevoDonante.rol}
-                    onChange={(e) =>
-                      setNuevoDonante((s) => ({ ...s, rol: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      const nextRole = e.target.value;
+                      setNuevoDonante((s) => ({ ...s, rol: nextRole }));
+                      if (nextRole !== "admin") setForceAdmin(false);
+                    }}
                     className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-400 bg-white"
                   >
                     <option value="donante">Donante</option>
@@ -525,6 +529,17 @@ const AdminDashboard = () => {
                     <option value="admin">Admin</option>
                   </select>
                 </div>
+                {nuevoDonante.rol === "admin" && (
+                  <label className="flex items-start gap-2 text-sm text-gray-700">
+                    <input
+                      type="checkbox"
+                      checked={forceAdmin}
+                      onChange={(e) => setForceAdmin(e.target.checked)}
+                      className="mt-1"
+                    />
+                    Seguro de crear el admin (usa force=true)
+                  </label>
+                )}
                 {[
                   { name: "nombre", label: "Nombre" },
                   { name: "apellido", label: "Apellido" },
